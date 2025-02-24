@@ -18,14 +18,12 @@ response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
 decoded_content = response.content.decode("utf-8", errors="replace")
 data = pd.read_csv(io.StringIO(decoded_content))
 
-drive_file_id = "1CwIXSTx7WbgEqDI00yl7mrhuPKztHObY"
-word2vec_url = f"https://docs.google.com/spreadsheets/d/1CwIXSTx7WbgEqDI00yl7mrhuPKztHObY/edit?usp=sharing&ouid=108592124470761797294&rtpof=true&sd=true"
-# 🔹 Word2Vec 파일 다운로드
-response = requests.get(word2vec_url, timeout=10, stream=True)
+word2vec_url = "https://github.com/ji2won/khuda-team3/raw/refs/heads/main/word2vec_vectors.csv"
+response = requests.get(word2vec_url, timeout=10)
 response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
 
-# 🔹 엑셀 파일을 BytesIO로 변환 후 pandas로 읽기
-word_vectors_df = pd.read_excel(io.BytesIO(response.content), engine="openpyxl", index_col=0)
+decoded_content = response.content.decode("utf-8", errors="replace")
+word_vectors_df = pd.read_csv(io.StringIO(decoded_content), index_col=0)
 
 vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
 
