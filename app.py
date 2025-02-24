@@ -7,42 +7,22 @@ from sklearn.metrics.pairwise import cosine_similarity
 import requests
 import io
 
-# ✅ GitHub CSV 파일의 Raw URL
 file_url = "https://github.com/ji2won/khuda-team3/raw/refs/heads/main/X_output_6041%20(4).csv"
+
+# 🔹 1. GitHub에서 파일 다운로드
+response = requests.get(file_url, timeout=10)
+response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
+
+# 🔹 2. 바이너리 데이터를 UTF-8로 디코딩 후, StringIO로 변환하여 읽기
+decoded_content = response.content.decode("utf-8", errors="replace")
+data = pd.read_csv(io.StringIO(decoded_content))
+
 word2vec_url = "https://github.com/ji2won/khuda-team3/raw/refs/heads/main/word2vec_vectors.csv"
+response = requests.get(word2vec_url, timeout=10)
+response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
 
-@st.cache_data  # ✅ Streamlit 캐시 기능으로 불필요한 중복 요청 방지
-def load_csv_data(url):
-    try:
-        # 🔹 1. GitHub에서 CSV 파일 다운로드
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
-
-        # 🔹 2. UTF-8로 디코딩 후, StringIO로 변환하여 읽기
-        decoded_content = response.content.decode("utf-8", errors="replace")
-        df = pd.read_csv(io.StringIO(decoded_content), index_col=0)
-
-        # 🔹 3. 데이터 확인
-        if df.shape[0] == 0:
-            raise ValueError(f"❌ {url} 데이터가 비어 있습니다. 파일을 확인하세요.")
-
-        print(f"✅ {url} 데이터 로드 성공!")
-        print("데이터 크기:", df.shape)  # 데이터 크기 확인
-        print("상위 5개 데이터:\n", df.head())  # 일부 데이터 확인
-
-        return df
-
-    except requests.exceptions.HTTPError as errh:
-        print(f"❌ HTTP 오류 발생: {errh}")
-    except requests.exceptions.ConnectionError as errc:
-        print(f"❌ 연결 오류 발생: {errc}")
-    except requests.exceptions.Timeout as errt:
-        print(f"❌ 타임아웃 오류 발생: {errt}")
-    except requests.exceptions.RequestException as err:
-        print(f"❌ 알 수 없는 요청 오류 발생: {err}")
-    except Exception as e:
-        print(f"❌ 예상치 못한 오류 발생: {e}")
-
+decoded_content = response.content.decode("utf-8", errors="replace")
+word_vectors_df = pd.read_csv(io.StringIO(decoded_content), index_col=0)
 
 vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
 
