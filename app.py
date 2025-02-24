@@ -5,13 +5,19 @@ import matplotlib.pyplot as plt
 import urllib.parse  # URL 인코딩
 from sklearn.metrics.pairwise import cosine_similarity
 
+import requests
+import io
+
 # 🔹 CSV 파일 로드 (데이터셋)
-file_path = "C:/Users/minjw/2025/khuda/toyproj/X_output_6041 (4).csv"
-data = pd.read_csv(file_path, encoding='cp949')
+file_url = "https://raw.githubusercontent.com/ji2won/khuda-team3/main/X_output_6041.csv"
+data = pd.read_csv(file_url, encoding='cp949')
 
 # 🔹 Word2Vec 벡터 데이터 로드
-word2vec_path = r"C:/Users/minjw/2025/khuda/toyproj/word2vec_vectors.xlsx"  # 실제 경로 입력
-word_vectors_df = pd.read_excel(word2vec_path, index_col=0)
+word2vec_url = "https://raw.githubusercontent.com/ji2won/khuda-team3/main/word2vec_vectors.xlsx"
+
+# 🔹 파일 다운로드 후 메모리에서 읽기
+response = requests.get(word2vec_url)
+word_vectors_df = pd.read_excel(io.BytesIO(response.content), index_col=0)
 
 vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
 
