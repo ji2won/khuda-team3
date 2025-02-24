@@ -22,13 +22,6 @@ data = pd.read_csv(io.StringIO(decoded_content))
 # 🔹 Word2Vec 벡터 데이터 로드
 word2vec_path = r"https://github.com/ji2won/khuda-team3/raw/refs/heads/main/word2vec_vectors.xlsx"  # 실제 경로 입력
 
-import pandas as pd
-import requests
-import io
-
-# ✅ 올바른 GitHub Raw URL 확인
-word2vec_url = "https://raw.githubusercontent.com/ji2won/khuda-team3/main/word2vec_vectors.xlsx"
-
 try:
     response = requests.get(word2vec_url, timeout=10)
     response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
