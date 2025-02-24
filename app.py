@@ -22,6 +22,13 @@ data = pd.read_csv(io.StringIO(decoded_content))
 # 🔹 Word2Vec 벡터 데이터 로드
 word2vec_path = r"https://github.com/ji2won/khuda-team3/raw/refs/heads/main/word2vec_vectors.xlsx"  # 실제 경로 입력
 
+import pandas as pd
+import requests
+import io
+
+# ✅ 올바른 GitHub Raw URL 확인
+word2vec_url = "https://raw.githubusercontent.com/ji2won/khuda-team3/main/word2vec_vectors.xlsx"
+
 try:
     response = requests.get(word2vec_url, timeout=10)
     response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
@@ -30,7 +37,8 @@ try:
     word_vectors_df = pd.read_excel(io.BytesIO(response.content), index_col=0)
 
     print("✅ Word2Vec 데이터 로드 성공!")
-    print(word_vectors_df.head())  # 일부 데이터 출력
+    print("데이터 크기:", word_vectors_df.shape)  # 데이터 크기 출력
+    print("상위 5개 데이터:\n", word_vectors_df.head())  # 일부 데이터 확인
 
 except requests.exceptions.HTTPError as errh:
     print(f"❌ HTTP 오류 발생: {errh}")
@@ -42,7 +50,6 @@ except requests.exceptions.RequestException as err:
     print(f"❌ 알 수 없는 요청 오류 발생: {err}")
 except Exception as e:
     print(f"❌ 예상치 못한 오류 발생: {e}")
-
 
 
 vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
