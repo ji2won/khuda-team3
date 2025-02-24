@@ -18,6 +18,35 @@ response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
 decoded_content = response.content.decode("utf-8", errors="replace")
 data = pd.read_csv(io.StringIO(decoded_content))
 
+drive_file_id = "1CwIXSTx7WbgEqDI00yl7mrhuPKztHObY"
+word2vec_url = f"https://docs.google.com/spreadsheets/d/1CwIXSTx7WbgEqDI00yl7mrhuPKztHObY/edit?usp=sharing&ouid=108592124470761797294&rtpof=true&sd=true"
+
+try:
+    # 🔹 Word2Vec 파일 다운로드
+    response = requests.get(word2vec_url, timeout=10, stream=True)
+    response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
+
+    # 🔹 엑셀 파일을 BytesIO로 변환 후 pandas로 읽기
+    word_vectors_df = pd.read_excel(io.BytesIO(response.content), engine="openpyxl", index_col=0)
+
+    # 🔹 데이터 확인
+    if word_vectors_df.shape[0] == 0:
+        raise ValueError("❌ Word2Vec 데이터가 비어 있습니다. 파일을 확인하세요.")
+
+    print("✅ Word2Vec 데이터 로드 성공!")
+    print("데이터 크기:", word_vectors_df.shape)  # 데이터 크기 확인
+    print("상위 5개 데이터:\n", word_vectors_df.head())  # 일부 데이터 확인
+
+except requests.exceptions.HTTPError as errh:
+    print(f"❌ HTTP 오류 발생: {errh}")
+except requests.exceptions.ConnectionError as errc:
+    print(f"❌ 연결 오류 발생: {errc}")
+except requests.exceptions.Timeout as errt:
+    print(f"❌ 타임아웃 오류 발생: {errt}")
+except requests.exceptions.RequestException as err:
+    print(f"❌ 알 수 없는 요청 오류 발생: {err}")
+except Exception as e:
+    print(f"❌ 예상치 못한 오류 발생: {e}")
 
 word2vec_path = r"https://github.com/ji2won/khuda-team3/raw/refs/heads/main/word2vec_vectors.xlsx"  # 실제 경로 입력
 word_vectors_df = pd.read_excel(word2vec_path, index_col=0)
