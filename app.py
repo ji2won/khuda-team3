@@ -9,7 +9,7 @@ import io
 
 # 🔹 CSV 파일 로드 (데이터셋)
 file_url = "https://raw.githubusercontent.com/ji2won/khuda-team/32ce7d471e22a1db78a96c88f08123692d8cb7475/X_output_6041%20(4).csv"
-data = pd.read_csv(file_url, encoding="utf-8", errors="replace")
+data = pd.read_csv(file_url, encoding="cp949", errors="replace")
 
 # 🔹 Word2Vec 벡터 데이터 로드
 word2vec_path = r"https://raw.githubusercontent.com/ji2won/khuda-team3/518490c43ecbcd29f8eeda35c1853a85b4942fbd/word2vec_vectors.xlsx"  # 실제 경로 입력
