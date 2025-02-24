@@ -19,7 +19,7 @@ decoded_content = response.content.decode("utf-8", errors="replace")
 data = pd.read_csv(io.StringIO(decoded_content))
 
 
-word2vec_path = r"https://raw.githubusercontent.com/ji2won/khuda-team3/main/word2vec_vectors.xlsx"  # 실제 경로 입력
+word2vec_path = "https://raw.githubusercontent.com/ji2won/khuda-team3/main/word2vec_vectors.xlsx"  # 실제 경로 입력
 word_vectors_df = pd.read_excel(word2vec_path, index_col=0)
 
 vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
