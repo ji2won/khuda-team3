@@ -18,6 +18,7 @@ response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
 decoded_content = response.content.decode("utf-8", errors="replace")
 data = pd.read_csv(io.StringIO(decoded_content))
 
+vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
 
 # 🔹 Word2Vec 벡터 데이터 로드
 word2vec_path = r"https://github.com/ji2won/khuda-team3/raw/refs/heads/main/word2vec_vectors.xlsx"  # 실제 경로 입력
@@ -48,10 +49,6 @@ except requests.exceptions.RequestException as err:
     print(f"❌ 알 수 없는 요청 오류 발생: {err}")
 except Exception as e:
     print(f"❌ 예상치 못한 오류 발생: {e}")
-
-
-
-vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
 
 st.set_page_config(layout="wide")
 col1, col2 = st.columns([1, 1])
