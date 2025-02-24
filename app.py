@@ -4,6 +4,8 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import urllib.parse  # URL 인코딩
 from sklearn.metrics.pairwise import cosine_similarity
+import requests
+import io
 
 # 🔹 CSV 파일 로드 (데이터셋)
 file_url = "https://raw.githubusercontent.com/ji2won/khuda-team3/main/X_output_6041.csv"
