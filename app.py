@@ -8,7 +8,7 @@ import requests
 import io
 
 # 🔹 CSV 파일 로드 (데이터셋)
-file_url = "https://raw.githubusercontent.com/ji2won/khuda-team3/main/X_output_6041.csv"
+file_url = "https://raw.githubusercontent.com/ji2won/khuda-team32ce7d471e22a1db78a96c88f08123692d8cb7475/X_output_6041%20(4).csv"
 
 # 🔹 1. 파일 다운로드
 response = requests.get(file_url)
