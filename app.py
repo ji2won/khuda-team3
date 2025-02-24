@@ -24,7 +24,7 @@ response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
 decoded_content = response.content.decode("utf-8", errors="replace")
 word_vectors_df = pd.read_csv(io.StringIO(decoded_content), index_col=0)
 
-vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
+#vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
 
 st.set_page_config(layout="wide")
 col1, col2 = st.columns([1, 1])
