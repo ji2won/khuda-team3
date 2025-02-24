@@ -7,15 +7,22 @@ from sklearn.metrics.pairwise import cosine_similarity
 import requests
 import io
 
-# 🔹 CSV 파일 로드 (데이터셋)
+# ✅ GitHub Raw URL 설정 (반드시 올바른 URL인지 확인!)
 file_url = "https://github.com/ji2won/khuda-team3/raw/refs/heads/main/X_output_6041%20(4).csv"
+
+# 🔹 1. GitHub에서 파일 다운로드
 response = requests.get(file_url, timeout=10)
 response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
-data = pd.read_csv(io.BytesIO(response.content), encoding="utf-8", errors="replace")
+
+# 🔹 2. 바이너리 데이터를 UTF-8로 디코딩 후, StringIO로 변환하여 읽기
+decoded_content = response.content.decode("utf-8", errors="replace")
+data = pd.read_csv(io.StringIO(decoded_content))
+
 
 # 🔹 Word2Vec 벡터 데이터 로드
 word2vec_path = r"https://github.com/ji2won/khuda-team3/raw/refs/heads/main/word2vec_vectors.xlsx"  # 실제 경로 입력
 word_vectors_df = pd.read_excel(word2vec_path, index_col=0)
+
 
 vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
 
