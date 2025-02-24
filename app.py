@@ -23,7 +23,7 @@ response = requests.get(word2vec_url, timeout=10)
 response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
 
 decoded_content = response.content.decode("utf-8", errors="replace")
-word_vectors_df = pd.read_csv(io.StringIO(decoded_content), index_col=0)
+word_vectors_df = pd.read_csv(io.StringIO(decoded_content))
 
 vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
 
