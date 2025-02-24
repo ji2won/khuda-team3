@@ -6,8 +6,10 @@ import urllib.parse  # URL 인코딩
 from sklearn.metrics.pairwise import cosine_similarity
 
 # 🔹 CSV 파일 로드 (데이터셋)
-file_path = "https://github.com/ji2won/khuda-team3/blob/c9e807f269183334dc1e61309e398e6bb6102cb3/X_output_6041%20(4).csv"
-data = pd.read_csv(file_path, encoding='cp949')
+file_url = "https://raw.githubusercontent.com/ji2won/khuda-team3/main/X_output_6041.csv"
+
+# ✅ 인코딩 자동 감지 (UTF-8, cp949 자동 처리)
+data = pd.read_csv(file_url, encoding="utf-8", errors="replace")
 
 # 🔹 Word2Vec 벡터 데이터 로드
 word2vec_path = r"https://github.com/ji2won/khuda-team3/blob/c9e807f269183334dc1e61309e398e6bb6102cb3/word2vec_vectors.xlsx"  # 실제 경로 입력
