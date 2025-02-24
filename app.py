@@ -8,7 +8,7 @@ import requests
 import io
 
 # 🔹 CSV 파일 로드 (데이터셋)
-file_url = "https://raw.githubusercontent.com/ji2won/khuda-team/32ce7d471e22a1db78a96c88f08123692d8cb7475/X_output_6041%20(4).csv"
+file_url = "https://github.com/ji2won/khuda-team3/raw/refs/heads/main/X_output_6041%20(4).csv"
 response = requests.get(file_url, timeout=10)
 response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
 data = pd.read_csv(io.StringIO(response.text), encoding="utf-8", errors="replace")
