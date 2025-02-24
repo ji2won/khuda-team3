@@ -21,7 +21,7 @@ data = pd.read_csv(io.StringIO(decoded_content))
 vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
 
 # 🔹 Word2Vec 벡터 데이터 로드
-word2vec_path = r"https://github.com/ji2won/khuda-team3/raw/refs/heads/main/word2vec_vectors.xlsx"  # 실제 경로 입력
+word2vec_path = "https://github.com/ji2won/khuda-team3/raw/refs/heads/main/word2vec_vectors.xlsx"  # 실제 경로 입력
 
 try:
     # 🔹 1. Word2Vec 파일 다운로드
