@@ -8,7 +8,7 @@ import requests
 import io
 
 # 🔹 CSV 파일 로드 (데이터셋)
-file_url = "https://raw.githubusercontent.com/ji2won/khuda-team32ce7d471e22a1db78a96c88f08123692d8cb7475/X_output_6041%20(4).csv"
+file_url = "https://raw.githubusercontent.com/ji2won/khuda-team/32ce7d471e22a1db78a96c88f08123692d8cb7475/X_output_6041%20(4).csv"
 
 # 🔹 1. 파일 다운로드
 response = requests.get(file_url)
@@ -18,7 +18,7 @@ response.raise_for_status()  # 오류 발생 시 예외 처리
 data = pd.read_csv(io.StringIO(response.text), encoding="utf-8", errors="replace")
 
 # 🔹 Word2Vec 벡터 데이터 로드
-word2vec_path = r"https://github.com/ji2won/khuda-team3/blob/c9e807f269183334dc1e61309e398e6bb6102cb3/word2vec_vectors.xlsx"  # 실제 경로 입력
+word2vec_path = r"https://raw.githubusercontent.com/ji2won/khuda-team3/518490c43ecbcd29f8eeda35c1853a85b4942fbd/word2vec_vectors.xlsx"  # 실제 경로 입력
 word_vectors_df = pd.read_excel(word2vec_path, index_col=0)
 
 vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
