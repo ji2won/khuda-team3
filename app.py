@@ -11,7 +11,7 @@ import io
 file_url = "https://github.com/ji2won/khuda-team3/raw/refs/heads/main/X_output_6041%20(4).csv"
 response = requests.get(file_url, timeout=10)
 response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
-data = pd.read_csv(io.StringIO(response.text), encoding="utf-8", errors="replace")
+data = pd.read_csv(io.BytesIO(response.content), encoding="utf-8", errors="replace")
 
 # 🔹 Word2Vec 벡터 데이터 로드
 word2vec_path = r"https://github.com/ji2won/khuda-team3/raw/refs/heads/main/word2vec_vectors.xlsx"  # 실제 경로 입력
