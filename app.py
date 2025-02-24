@@ -21,10 +21,17 @@ word2vec_url = "https://github.com/ji2won/khuda-team3/raw/refs/heads/main/word2v
 response = requests.get(word2vec_url, timeout=10)
 response.raise_for_status()  # HTTP 오류 발생 시 예외 처리
 
-decoded_content = response.content.decode("utf-8", errors="replace")
+decoded_content = response.content.decode("utf-8", errors="replace")  # UTF-8로 디코딩
 word_vectors_df = pd.read_csv(io.StringIO(decoded_content), index_col=0)
 
-#vector_size = word_vectors_df.shape[1]  # Word2Vec 벡터 차원 확인
+# ✅ 3. 벡터 차원 확인 (에러 방지)
+if not word_vectors_df.empty:
+    vector_size = word_vectors_df.shape[1]
+    print(f"✅ Word2Vec 벡터 로드 성공! 벡터 크기: {vector_size}")
+    print(word_vectors_df.head())
+else:
+    print("❌ Word2Vec 데이터가 비어 있습니다. 파일을 확인하세요.")
+
 
 st.set_page_config(layout="wide")
 col1, col2 = st.columns([1, 1])
